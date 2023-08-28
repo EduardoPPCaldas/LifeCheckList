@@ -12,13 +12,13 @@ func main() {
 	viper.SetConfigFile(".env")
 	viper.ReadInConfig()
 
-	api := api.NewLifeCheckListApi()
-
-	_, err := database.SetDatabase()
-
+	db, err := database.SetDatabase()
+	
 	if err != nil {
 		log.Fatal(err)
 	}
+	
+	api := api.NewLifeCheckListApi(db)
 
 	api.Run()
 }
